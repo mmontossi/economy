@@ -1,0 +1,7 @@
+development:
+  adapter: postgresql
+  database: makers_development
+
+test:
+  adapter: postgresql
+  database: makers_test

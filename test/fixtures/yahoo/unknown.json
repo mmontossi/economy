@@ -1,0 +1,18 @@
+{
+  "query": {
+    "count": 1,
+    "created": "2016-09-12T22: 44: 50Z",
+    "lang": "en-US",
+    "results": {
+      "rate": {
+        "id": "KKKQQQ",
+        "Name": "N/A",
+        "Rate": "N/A",
+        "Date": "N/A",
+        "Time": "N/A",
+        "Ask": "N/A",
+        "Bid": "N/A"
+      }
+    }
+  }
+}

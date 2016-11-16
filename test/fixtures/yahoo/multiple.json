@@ -1,0 +1,29 @@
+{
+  "query": {
+    "count": 2,
+    "created": "2016-09-12T22: 16: 22Z",
+    "lang": "en-US",
+    "results": {
+      "rate": [
+        {
+          "id": "USDUYU",
+          "Name": "USD/UYU",
+          "Rate": "29.3200",
+          "Date": "9/12/2016",
+          "Time": "8: 51pm",
+          "Ask": "29.4200",
+          "Bid": "29.3200"
+        },
+        {
+          "id": "UYUUSD",
+          "Name": "UYU/USD",
+          "Rate": "0.0341",
+          "Date": "9/12/2016",
+          "Time": "8: 51pm",
+          "Ask": "0.0341",
+          "Bid": "0.0341"
+        }
+      ]
+    }
+  }
+}
