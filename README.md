@@ -44,17 +44,14 @@ rails g economy:install
 The defaults are:
 ```ruby
 Economy.configure do |config|
-
   config.rates = :yahoo
   config.default_currency = 'USD'
-
   config.add_currency(
     iso_code: 'USD',
     iso_number: 840,
     symbol: 'U$S',
     decimals: 2
   )
-
 end
 ```
 
@@ -73,9 +70,7 @@ end
 Define the money field in your models:
 ```ruby
 class Product < ActiveRecord::Base
-
   monetize :price
-
 end
 ```
 
