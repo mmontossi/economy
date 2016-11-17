@@ -55,6 +55,13 @@ Economy.configure do |config|
 end
 ```
 
+Add a redis_url to your environment configuration:
+```ruby
+Rails.application.configure do
+  config.redis_url = 'redis://localhost:6379/0'
+end
+```
+
 ## Definition
 
 Add the money columns to your tables:
