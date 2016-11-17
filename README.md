@@ -87,7 +87,11 @@ product.currency = 'USD'
 
 Arithmetics are intuitive:
 ```ruby
-product.price * 2
+product.price * 2 # => U$S 40
+product.price / 2 # => U$S 10
+
+product.price + Economy::Money.new(10, 'USD') # => U$S 30
+product.price - Economy::Money.new(10, 'USD') # => U$S 10
 ```
 
 To exchange to another currency:
