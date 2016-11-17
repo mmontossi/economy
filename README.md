@@ -12,7 +12,7 @@ High performance multicurrency money for rails.
 I did this gem to:
 
 - Keep rates cached in redis for optimal performance and sync between instances.
-- Out of the box working rates service.
+- Have an out of the box working rates service.
 - Be able to make sql queries without the need to convert integers to decimals.
 - Share a common currency column for multiple money fields if a need it.
 - Avoid the need to format manually the string representation in views.
