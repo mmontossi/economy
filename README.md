@@ -9,7 +9,7 @@ High performance multicurrency money for rails.
 
 ## Why
 
-I did this gem to add some enhancements to my projects:
+I did this gem to:
 
 - Keep rates cached in redis for optimal performance and sync between instances.
 - Out of the box working rates service.
