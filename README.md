@@ -83,6 +83,8 @@ end
 
 ## Usage
 
+### Methods
+
 If you want to assign values, everything continuos working the same:
 ```ruby
 product.price = 20.00
@@ -108,7 +110,7 @@ The formatting method is to_s, it uses active support, so there is no need to ca
 <%= product.price %>
 ```
 
-## Rates
+### Rates
 
 You can use rake task:
 ```
