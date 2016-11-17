@@ -38,7 +38,7 @@ brew install redis
 
 Generate the configuration file:
 ```
-rails g economy:install
+bundle exec rails g economy:install
 ```
 
 The defaults are:
