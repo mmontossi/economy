@@ -135,4 +135,8 @@ class MoneyTest < ActiveSupport::TestCase
     assert_equal 'U$S122,444.46', money(122444.45544, 'USD').to_s
   end
 
+  test 'coerce' do
+    assert_equal money(4, 'USD'), (4 * money(1, 'USD'))
+  end
+
 end

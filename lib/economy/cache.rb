@@ -10,7 +10,7 @@ module Economy
     end
 
     def clear
-      client.del "exchanges/*"
+      client.del 'exchanges/*'
     end
 
     private

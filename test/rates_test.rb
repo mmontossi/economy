@@ -3,6 +3,15 @@ require 'test_helper'
 class RatesTest < ActiveSupport::TestCase
   include RatesHelper
 
+  test 'retries' do
+    base = Economy::Rates::Base.new
+    base.expects(:call).raises('Error').times(31)
+    base.expects(:sleep).with(60).times(30)
+    silence_stream(STDOUT) do
+      base.fetch
+    end
+  end
+
   test 'yahoo' do
     ids = Economy.currencies.map(&:iso_code).permutation(2).map(&:join).join(',')
     uri = URI('https://query.yahooapis.com/v1/public/yql')
@@ -45,7 +54,7 @@ class RatesTest < ActiveSupport::TestCase
   def assert_response(service, uri, result, code, name=nil)
     response = mock_response(service, code, name)
     Net::HTTP.stubs(:get_response).with(uri).returns response
-    assert_equal result, Economy::Rates::Yahoo.new.fetch_latests
+    assert_equal result, Economy::Rates::Yahoo.new.fetch
   end
 
 end

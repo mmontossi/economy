@@ -33,7 +33,7 @@ module Economy
     def update_rates
       class_name = configuration.rates.to_s.classify
       rates = Rates.const_get(class_name).new
-      rates.fetch_latests.each do |from, to, rate|
+      rates.fetch.each do |from, to, rate|
         puts "Updating exchange #{from} => #{to} with rate #{rate}"
         Exchange.create service: class_name, from: from, to: to, rate: rate
       end
