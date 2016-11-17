@@ -73,7 +73,9 @@ end
 Define the money field in your models:
 ```ruby
 class Product < ActiveRecord::Base
+
   monetize :price
+
 end
 ```
 
