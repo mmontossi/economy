@@ -41,28 +41,12 @@ Generate the configuration file:
 bundle exec rails g economy:install
 ```
 
-The defaults are:
-```ruby
-Economy.configure do |config|
-  config.rates = :yahoo
-  config.default_currency = 'USD'
-  config.add_currency(
-    iso_code: 'USD',
-    iso_number: 840,
-    symbol: 'U$S',
-    decimals: 2
-  )
-end
-```
-
 Add a redis_url to your environment configuration:
 ```ruby
 Rails.application.configure do
   config.redis_url = 'redis://localhost:6379/0'
 end
 ```
-
-## Definition
 
 Add the money columns to your tables:
 ```ruby
@@ -83,7 +67,7 @@ end
 
 ## Usage
 
-### Methods
+### Attributes
 
 If you want to assign values, everything continuos working the same:
 ```ruby
