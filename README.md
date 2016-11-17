@@ -116,7 +116,7 @@ Or the plain method:
 Economy.update_rates
 ```
 
-NOTE: You probably want to put the rake task in a cronjob
+NOTE: You probably want to put the rake task into a cronjob.
 
 ## Credits
 
