@@ -67,7 +67,9 @@ end
 Add a redis_url to your environment configuration:
 ```ruby
 Rails.application.configure do
+
   config.redis_url = 'redis://localhost:6379/0'
+
 end
 ```
 
@@ -84,7 +86,9 @@ end
 Define the money field in your models:
 ```ruby
 class Product < ActiveRecord::Base
+
   monetize :price
+
 end
 ```
 
