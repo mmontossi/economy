@@ -67,30 +67,24 @@ end
 Add a redis_url to your environment configuration:
 ```ruby
 Rails.application.configure do
-
   config.redis_url = 'redis://localhost:6379/0'
-
 end
 ```
 
 Add the money columns to your tables:
 ```ruby
 class AddPriceToProducts < ActiveRecord::Migration
-
   def change
     add_column :products, :price, :decimal, precision: 24, scale: 6
     add_column :products, :currency, :string, limit: 3 # Or :price_currency
   end
-
 end
 ```
 
 Define the money field in your models:
 ```ruby
 class Product < ActiveRecord::Base
-
   monetize :price
-
 end
 ```
 
