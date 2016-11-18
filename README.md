@@ -13,9 +13,9 @@ I did this gem to:
 
 - Keep rates cached in redis for optimal performance and sync between instances.
 - Have an out of the box working rates service.
-- Be able to make sql queries without the need to convert integers to decimals.
+- Be able to make sql queries without the need to convert integers into decimals.
 - Share a common currency column for multiple money fields if a need it.
-- Avoid the need to format manually the string representation in views.
+- Avoid the need to manually format the string representation in views.
 
 ## Install
 
@@ -31,14 +31,37 @@ $ bundle
 
 To install Redis you can use homebrew:
 ```
-brew install redis
+$ brew install redis
 ```
 
 ## Configuration
 
 Generate the configuration file:
 ```
-bundle exec rails g economy:install
+$ bundle exec rails g economy:install
+```
+
+Configure the global settings:
+```ruby
+Economy.configure do |config|
+
+  config.rates = :yahoo
+  config.default_currency = 'USD'
+
+  config.add_currency(
+    iso_code: 'USD',
+    iso_number: 840,
+    symbol: 'U$S',
+    decimals: 2
+  )
+  config.add_currency(
+    iso_code: 'UYU',
+    iso_number: 858,
+    symbol: '$U',
+    decimals: 2
+  )
+
+end
 ```
 
 Add a redis_url to your environment configuration:
@@ -98,7 +121,7 @@ The formatting method is to_s, it uses active support, so there is no need to ca
 
 You can use rake task:
 ```
-bundle exec rake economy:update_rates
+$ bundle exec rake economy:update_rates
 ```
 
 Or the plain method:
