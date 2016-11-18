@@ -36,12 +36,12 @@ $ brew install redis
 
 ## Configuration
 
-Generate the configuration file:
+Run the install generator:
 ```
 $ bundle exec rails g economy:install
 ```
 
-Configure the global settings:
+Set the global settings:
 ```ruby
 Economy.configure do |config|
 
