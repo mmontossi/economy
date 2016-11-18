@@ -3,6 +3,8 @@ class CreateProducts < ActiveRecord::Migration
     create_table :products do |t|
       t.decimal :price, precision: 24, scale: 6
       t.string :price_currency, limit: 3
+
+      t.timestamps null: false
     end
   end
 end
