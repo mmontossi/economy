@@ -1,7 +1,7 @@
 development:
   adapter: postgresql
-  database: makers_development
+  database: economy_development
 
 test:
   adapter: postgresql
-  database: makers_test
+  database: economy_test
