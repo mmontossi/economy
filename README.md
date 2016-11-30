@@ -34,7 +34,9 @@ To install Redis you can use homebrew:
 $ brew install redis
 ```
 
-## Configuration
+## Usage
+
+### Configuration
 
 Run the install generator:
 ```
@@ -71,6 +73,8 @@ Rails.application.configure do
 end
 ```
 
+### Definitions
+
 Add the money columns to your tables:
 ```ruby
 class AddPriceToProducts < ActiveRecord::Migration
@@ -87,8 +91,6 @@ class Product < ActiveRecord::Base
   monetize :price
 end
 ```
-
-## Usage
 
 ### Attributes
 
