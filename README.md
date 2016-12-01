@@ -34,14 +34,12 @@ To install Redis you can use homebrew:
 $ brew install redis
 ```
 
+## Configuration
+
 Run the install generator:
 ```
 $ bundle exec rails g economy:install
 ```
-
-## Usage
-
-### Configuration
 
 Set the global settings:
 ```ruby
@@ -72,6 +70,8 @@ Rails.application.configure do
   config.redis_url = 'redis://localhost:6379/0'
 end
 ```
+
+## Usage
 
 ### Definitions
 
