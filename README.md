@@ -34,6 +34,8 @@ To install Redis you can use homebrew:
 $ brew install redis
 ```
 
+## Configuration
+
 Run the install generator:
 ```
 $ bundle exec rails g economy:install
