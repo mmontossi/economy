@@ -36,7 +36,7 @@ $ brew install redis
 
 ## Configuration
 
-Run the install generator:
+Generate the configuration file:
 ```
 $ bundle exec rails g economy:install
 ```
