@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class RatesTest < ActiveSupport::TestCase
+class RateTest < ActiveSupport::TestCase
   include RatesHelper
 
   test 'retries' do

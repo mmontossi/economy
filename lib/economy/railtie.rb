@@ -1,7 +1,7 @@
 module Economy
   class Railtie < Rails::Railtie
 
-    initializer :sidejobs do
+    initializer 'economy.extensions' do
       # Prevent deprecation warning
       require 'economy/exchange'
 

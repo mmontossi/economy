@@ -1,4 +1,3 @@
-require 'generators/economy/install_generator'
 require 'economy/extensions/active_record/base'
 require 'economy/rates/base'
 require 'economy/rates/yahoo'
