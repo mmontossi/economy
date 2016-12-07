@@ -45,6 +45,7 @@ Set the global settings:
 ```ruby
 Economy.configure do |config|
 
+  config.redis = Redis.new(url: 'redis://localhost:6379/0')
   config.rates = :yahoo
   config.default_currency = 'USD'
 
@@ -61,13 +62,6 @@ Economy.configure do |config|
     decimals: 2
   )
 
-end
-```
-
-Add a redis_url to your environment configuration:
-```ruby
-Rails.application.configure do
-  config.redis_url = 'redis://localhost:6379/0'
 end
 ```
 
