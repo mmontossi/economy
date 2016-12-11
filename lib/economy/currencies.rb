@@ -1,12 +1,12 @@
 module Economy
   class Currencies
 
-    def exist?(id)
+    def exists?(id)
       registry.has_key? id
     end
 
     def find(id)
-      if exist?(id)
+      if exists?(id)
         registry[id]
       else
         raise "Currency #{id} not found"
