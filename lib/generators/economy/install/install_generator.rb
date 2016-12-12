@@ -11,6 +11,10 @@ module Economy
         copy_file 'initializer.rb', 'config/initializers/economy.rb'
       end
 
+      def create_configuration_file
+        copy_file 'configuration.yml', 'config/redis.yml'
+      end
+
       def create_migration_file
         migration_template 'migration.rb', 'db/migrate/create_exchanges.rb'
       end

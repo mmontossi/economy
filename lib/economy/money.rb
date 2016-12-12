@@ -133,7 +133,7 @@ module Economy
     def exchange_to(new_currency)
       new_currency = normalize_currency(new_currency)
       if currency != new_currency
-        if rate = Economy.cache.get(currency, new_currency)
+        if rate = Economy.rate(currency, new_currency)
           Money.new (amount * BigDecimal(rate)), new_currency
         else
           raise "Exchange #{currency} => #{new_currency} not found"

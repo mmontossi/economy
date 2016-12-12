@@ -1,6 +1,5 @@
 Economy.configure do |config|
 
-  config.client = Redis.new(url: 'redis://localhost:6379/0')
   config.rates = :yahoo
   config.default_currency = 'USD'
 

@@ -29,6 +29,10 @@ module Economy
       yield configuration
     end
 
+    def rate(*args)
+      cache.send :fetch, *args
+    end
+
     def update_rates
       class_name = configuration.rates.to_s.classify
       rates = Rates.const_get(class_name).new

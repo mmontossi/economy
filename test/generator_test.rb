@@ -13,6 +13,7 @@ class GeneratorTest < Rails::Generators::TestCase
     self.class.tests Economy::Generators::InstallGenerator
     run_generator
     assert_file 'config/initializers/economy.rb'
+    assert_file 'config/redis.yml'
     assert_migration 'db/migrate/create_exchanges.rb'
   end
 

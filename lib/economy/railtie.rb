@@ -1,13 +1,13 @@
 module Economy
   class Railtie < Rails::Railtie
 
-    initializer 'economy.extensions' do
-      # Prevent deprecation warning
-      require 'economy/exchange'
-
-      ::ActiveRecord::Base.include(
-        Economy::Extensions::ActiveRecord::Base
-      )
+    initializer 'economy.active_record' do
+      ActiveSupport.on_load :active_record do
+        require 'economy/exchange'
+        ::ActiveRecord::Base.include(
+          Economy::Extensions::ActiveRecord::Base
+        )
+      end
     end
 
     rake_tasks do

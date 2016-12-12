@@ -10,7 +10,7 @@ module Economy
     private
 
     def cache
-      Economy.cache.set self
+      Economy.cache.update self
     end
 
   end

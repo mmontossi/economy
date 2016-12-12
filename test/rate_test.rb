@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class RateTest < ActiveSupport::TestCase
-  include RatesHelper
+  include RateHelper
 
   test 'retries' do
     base = Economy::Rates::Base.new

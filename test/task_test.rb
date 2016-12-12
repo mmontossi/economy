@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class TaskTest < ActiveSupport::TestCase
-  include RatesHelper
+  include RateHelper
 
   setup do
     Dummy::Application.load_tasks

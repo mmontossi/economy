@@ -1,22 +1,29 @@
 module Economy
   class Cache
 
-    def get(from, to)
-      client.get "exchanges/#{from.iso_code.downcase}/#{to.iso_code.downcase}"
+    def fetch(from, to)
+      get "exchanges/#{from.iso_code.downcase}/#{to.iso_code.downcase}"
     end
 
-    def set(exchange)
-      client.set "exchanges/#{exchange.from.downcase}/#{exchange.to.downcase}", exchange.rate.to_s
+    def update(exchange)
+      set "exchanges/#{exchange.from.downcase}/#{exchange.to.downcase}", exchange.rate.to_s
     end
 
     def clear
-      client.del 'exchanges/*'
+      del 'exchanges/*'
+    end
+
+    def method_missing(name, *args, &block)
+      client.public_send name, *args, &block
     end
 
     private
 
     def client
-      Economy.configuration.client
+      @client ||= begin
+        require 'redis'
+        Redis.new YAML.load_file("#{Rails.root}/config/redis.yml")[Rails.env]
+      end
     end
 
   end

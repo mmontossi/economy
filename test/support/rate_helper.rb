@@ -1,4 +1,4 @@
-module RatesHelper
+module RateHelper
   extend ActiveSupport::Concern
 
   private
