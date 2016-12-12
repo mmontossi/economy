@@ -75,7 +75,7 @@ Add the money columns to your tables:
 class AddPriceToProducts < ActiveRecord::Migration
   def change
     add_column :products, :price, :decimal, precision: 24, scale: 6
-    add_column :products, :currency, :string, limit: 3 # Or :price_currency
+    add_column :products, :currency, :string, limit: 3
   end
 end
 ```
@@ -97,11 +97,17 @@ product.currency = 'USD'
 
 Arithmetics are intuitive:
 ```ruby
-product.price * 2 # => U$S 40
-product.price / 2 # => U$S 10
+product.price * 2
+# => U$S 40
 
-product.price + Economy::Money.new(10, 'USD') # => U$S 30
-product.price - Economy::Money.new(10, 'USD') # => U$S 10
+product.price / 2
+# => U$S 10
+
+product.price + Economy::Money.new(10, 'USD')
+# => U$S 30
+
+product.price - Economy::Money.new(10, 'USD')
+# => U$S 10
 ```
 
 To exchange to another currency:
