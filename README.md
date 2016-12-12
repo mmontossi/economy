@@ -124,12 +124,6 @@ The formatting method is to_s, it uses active support, so there is no need to ca
 
 ### Rates
 
-To fetch a rate:
-```ruby
-Economy.rate 'UYU', 'USD'
-# => 28.45
-```
-
 To update rates:
 ```
 $ bundle exec rake economy:update_rates
