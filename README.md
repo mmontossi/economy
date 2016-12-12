@@ -70,6 +70,13 @@ NOTE: You may want to personalize the generated config/redis.yml.
 
 ### Definitions
 
+Define the money field in your models:
+```ruby
+class Product < ActiveRecord::Base
+  monetize :price
+end
+```
+
 Add the money columns to your tables:
 ```ruby
 class AddPriceToProducts < ActiveRecord::Migration
@@ -80,12 +87,7 @@ class AddPriceToProducts < ActiveRecord::Migration
 end
 ```
 
-Define the money field in your models:
-```ruby
-class Product < ActiveRecord::Base
-  monetize :price
-end
-```
+NOTE: You can use a gobal "currency" column o a prefixed "price_currency" column.
 
 ### Attributes
 
@@ -122,7 +124,13 @@ The formatting method is to_s, it uses active support, so there is no need to ca
 
 ### Rates
 
-You can use rake task:
+To fetch a rate:
+```ruby
+Economy.rate 'UYU', 'USD'
+# => 28.45
+```
+
+To update rates:
 ```
 $ bundle exec rake economy:update_rates
 ```
