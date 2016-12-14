@@ -3,7 +3,7 @@ class CreatePlans < ActiveRecord::Migration
     create_table :plans do |t|
       t.decimal :monthly_price, precision: 24, scale: 6
       t.decimal :annually_price, precision: 24, scale: 6
-      t.string :currency, limit: 3
+      t.string :currency
 
       t.timestamps null: false
     end

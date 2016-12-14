@@ -82,7 +82,7 @@ Add the money columns to your tables:
 class AddPriceToProducts < ActiveRecord::Migration
   def change
     add_column :products, :price, :decimal, precision: 24, scale: 6
-    add_column :products, :currency, :string, limit: 3
+    add_column :products, :currency, :string
   end
 end
 ```
