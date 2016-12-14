@@ -136,7 +136,7 @@ module Economy
         if rate = Economy.rate(currency, new_currency)
           Money.new (amount * BigDecimal(rate)), new_currency
         else
-          raise "Exchange #{currency} => #{new_currency} not found"
+          raise "Exchange #{currency.iso_code} => #{new_currency.iso_code} not found"
         end
       else
         self
