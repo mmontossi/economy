@@ -81,8 +81,9 @@ class MoneyTest < ActiveSupport::TestCase
 
   test '*' do
     assert_equal 30, (money(10, 'USD') * 3).amount
+    assert_equal 30, (money(10, 'USD') * money(3, 'USD'))
     assert_raises do
-      money(10, 'USD') * money(3, 'USD')
+      money(10, 'USD') * 'a'
     end
   end
 

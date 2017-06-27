@@ -10,9 +10,7 @@ class TaskTest < ActiveSupport::TestCase
   test 'update rates' do
     response = mock_response(:yahoo, '200', :multiple)
     Net::HTTP.stubs(:get_response).returns response
-    silence_stream(STDOUT) do
-      Rake::Task['economy:update_rates'].invoke
-    end
+    Rake::Task['economy:update_rates'].invoke
 
     assert_equal 2, Economy::Exchange.count
     assert Economy::Exchange.exists?(service: 'Yahoo', from: 'USD', to: 'UYU', rate: 29.3200)

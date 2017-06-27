@@ -7,9 +7,7 @@ class RateTest < ActiveSupport::TestCase
     base = Economy::Rates::Base.new
     base.expects(:call).raises('Error').times(31)
     base.expects(:sleep).with(60).times(30)
-    silence_stream(STDOUT) do
-      base.fetch
-    end
+    base.fetch
   end
 
   test 'yahoo' do

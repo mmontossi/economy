@@ -59,7 +59,7 @@ module Economy
         other = other.exchange_to(currency)
         amount <=> other.amount
       else
-        raise "Only Numeric 0 and Money can be compared with Money"
+        raise "Can't compare #{other.class.name} with Money"
       end
     end
 
@@ -82,7 +82,10 @@ module Economy
     end
 
     def *(value)
-      if value.is_a?(Numeric)
+      case value
+      when Money
+        amount * value.exchange_to(currency).amount
+      when Numeric
         Money.new (amount * value), currency
       else
         raise "Can't multiply Money by #{value.class.name}"
@@ -136,7 +139,7 @@ module Economy
         if rate = Economy.rate(currency, new_currency)
           Money.new (amount * BigDecimal(rate)), new_currency
         else
-          raise "Exchange #{currency.iso_code} => #{new_currency.iso_code} not found"
+          raise "Rate #{currency.iso_code} => #{new_currency.iso_code} not found"
         end
       else
         self

@@ -1,5 +1,5 @@
 module Economy
 
-  VERSION = '4.0.2.2'
+  VERSION = '5.1.0'
 
 end

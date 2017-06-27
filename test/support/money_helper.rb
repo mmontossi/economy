@@ -10,14 +10,12 @@ module MoneyHelper
         to: 'UYU',
         rate: 20
       )
-      usd_to_uyu.run_callbacks :commit
       uyu_to_usd = Economy::Exchange.create(
         service: 'Yahoo',
         from: 'UYU',
         to: 'USD',
         rate: 0.05
       )
-      uyu_to_usd.run_callbacks :commit
     end
   end
 

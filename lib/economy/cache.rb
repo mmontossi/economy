@@ -14,13 +14,13 @@ module Economy
     end
 
     def method_missing(name, *args, &block)
-      client.public_send name, *args, &block
+      redis.public_send name, *args, &block
     end
 
     private
 
-    def client
-      @client ||= begin
+    def redis
+      @redis ||= begin
         require 'redis'
         Redis.new YAML.load_file("#{Rails.root}/config/redis.yml")[Rails.env]
       end
