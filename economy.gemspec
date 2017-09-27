@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.name        = 'economy'
   s.version     = Economy::VERSION
   s.authors     = ['mmontossi']
-  s.email       = ['mmontossi@museways.com']
-  s.homepage    = 'https://github.com/mmontossi/economy'
+  s.email       = ['hi@museways.com']
+  s.homepage    = 'https://github.com/museways/economy'
   s.summary     = 'Economy for Rails'
   s.description = 'High performance multicurrency money for rails.'
   s.license     = 'MIT'

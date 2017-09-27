@@ -1,7 +1,7 @@
 [![Gem Version](https://badge.fury.io/rb/economy.svg)](http://badge.fury.io/rb/economy)
-[![Code Climate](https://codeclimate.com/github/mmontossi/economy/badges/gpa.svg)](https://codeclimate.com/github/mmontossi/economy)
-[![Build Status](https://travis-ci.org/mmontossi/economy.svg)](https://travis-ci.org/mmontossi/economy)
-[![Dependency Status](https://gemnasium.com/mmontossi/economy.svg)](https://gemnasium.com/mmontossi/economy)
+[![Code Climate](https://codeclimate.com/github/museways/economy/badges/gpa.svg)](https://codeclimate.com/github/museways/economy)
+[![Build Status](https://travis-ci.org/museways/economy.svg)](https://travis-ci.org/museways/economy)
+[![Dependency Status](https://gemnasium.com/museways/economy.svg)](https://gemnasium.com/museways/economy)
 
 # Economy
 
@@ -144,7 +144,7 @@ I will mainly ensure compatibility to Rails, AWS, PostgreSQL, Redis, Elasticsear
 
 ## Credits
 
-This gem is maintained and funded by [mmontossi](https://github.com/mmontossi).
+This gem is maintained and funded by [museways](https://github.com/museways).
 
 ## License
 
