@@ -3,7 +3,7 @@ PATH
   specs:
     economy (5.1.0)
       rails (~> 5.1)
-      redis (~> 3.3)
+      redis (~> 4.0)
 
 GEM
   remote: https://rubygems.org/
@@ -98,7 +98,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (12.1.0)
-    redis (3.3.3)
+    redis (4.0.0)
     sprockets (3.7.1)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
