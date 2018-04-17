@@ -8,8 +8,11 @@ module Economy
       @concern = Module.new
     end
 
-    def define(attributes)
-      attributes.each do |attribute|
+    def define(*args)
+      if args.last.is_a?(Proc)
+        renderer = args.pop
+      end
+      args.each do |attribute|
         if model.column_names.include?("#{attribute}_currency")
           currency_attribute = :"#{attribute}_currency"
         else
@@ -18,7 +21,7 @@ module Economy
         set_validators attribute, currency_attribute
         define_helpers attribute
         default_currency = Economy.configuration.default_currency
-        define_getter attribute, currency_attribute, default_currency
+        define_getter attribute, currency_attribute, default_currency, renderer
         define_setter attribute, currency_attribute, default_currency
       end
       model.include concern
@@ -45,14 +48,16 @@ module Economy
       end
     end
 
-    def define_getter(attribute, currency_attribute, default_currency)
+    def define_getter(attribute, currency_attribute, default_currency, renderer)
       concern.class_eval do
         define_method attribute do
           value = read_attribute(attribute)
           currency = send(currency_attribute)
           Economy::Money.new(
+            self,
             (value || 0),
-            (currency || default_currency)
+            (currency || default_currency),
+            renderer
           )
         end
       end

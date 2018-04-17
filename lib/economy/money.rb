@@ -2,17 +2,19 @@ module Economy
   class Money
     include Comparable
 
-    attr_reader :amount, :currency
+    attr_reader :record, :amount, :currency, :renderer
 
     delegate :to_d, :to_i, :to_f, to: :amount
 
-    def initialize(amount, currency)
+    def initialize(record, amount, currency, renderer=nil)
+      @record = record
       if amount.is_a?(BigDecimal)
         @amount = amount
       else
         @amount = BigDecimal(amount.to_s)
       end
       @currency = normalize_currency(currency)
+      @renderer = renderer
     end
 
     def coerce(other)
@@ -152,11 +154,16 @@ module Economy
     alias_method :as_json, :to_json
 
     def to_s(precision=nil)
-      ActiveSupport::NumberHelper.number_to_currency(
+      value = ActiveSupport::NumberHelper.number_to_currency(
         amount,
         unit: currency.symbol,
         precision: (precision || currency.decimals)
       )
+      if renderer
+        record.instance_exec value, &renderer
+      else
+        value
+      end
     end
 
     private

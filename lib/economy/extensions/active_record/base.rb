@@ -6,9 +6,9 @@ module Economy
 
         module ClassMethods
 
-          def monetize(*attributes)
+          def monetize(*args)
             builder = Builder.new(self)
-            builder.define attributes
+            builder.define *args
           end
 
         end
