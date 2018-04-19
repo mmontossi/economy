@@ -2,7 +2,6 @@ module Economy
   class Railtie < Rails::Railtie
 
     initializer 'economy.active_record' do
-      require 'economy/exchange'
       ActiveSupport.on_load :active_record do
         ::ActiveRecord::Base.include(
           Economy::Extensions::ActiveRecord::Base

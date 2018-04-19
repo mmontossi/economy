@@ -22,12 +22,12 @@ module Economy
     end
 
     def abs
-      Money.new amount.abs, currency
+      build amount.abs, currency
     end
     alias_method :magnitude, :abs
 
     def -@
-      Money.new -amount, currency
+      build -amount, currency
     end
 
     def positive?
@@ -68,7 +68,7 @@ module Economy
     def +(other)
       if other.is_a?(Money)
         other = other.exchange_to(currency)
-        Money.new (amount + other.amount), currency
+        build (amount + other.amount), currency
       else
         raise "Can't add #{other.class.name} to Money"
       end
@@ -77,7 +77,7 @@ module Economy
     def -(other)
       if other.is_a?(Money)
         other = other.exchange_to(currency)
-        Money.new (amount - other.amount), currency
+        build (amount - other.amount), currency
       else
         raise "Can't subtract #{other.class.name} from Money"
       end
@@ -88,7 +88,7 @@ module Economy
       when Money
         amount * value.exchange_to(currency).amount
       when Numeric
-        Money.new (amount * value), currency
+        build (amount * value), currency
       else
         raise "Can't multiply Money by #{value.class.name}"
       end
@@ -99,7 +99,7 @@ module Economy
       when Money
         amount / value.exchange_to(currency).amount
       when Numeric
-        Money.new (amount / value), currency
+        build (amount / value), currency
       else
         raise "Can't divide Money by #{value.class.name}"
       end
@@ -110,10 +110,10 @@ module Economy
       case value
       when Money
         quotient, modulo = amount.divmod(value.exchange_to(currency).amount)
-        [quotient, Money.new(modulo, currency)]
+        [quotient, build(modulo, currency)]
       when Numeric
         quotient, modulo = amount.divmod(value)
-        [Money.new(quotient, currency), Money.new(modulo, currency)]
+        [build(quotient, currency), build(modulo, currency)]
       else
         raise "Can't divide Money by #{value.class.name}"
       end
@@ -127,9 +127,9 @@ module Economy
     def remainder(value)
       case value
       when Money
-        Money.new amount.remainder(value.exchange_to(currency).amount), currency
+        build amount.remainder(value.exchange_to(currency).amount), currency
       when Numeric
-        Money.new amount.remainder(value), currency
+        build amount.remainder(value), currency
       else
         raise "Can't divide Money by #{value.class.name}"
       end
@@ -138,8 +138,8 @@ module Economy
     def exchange_to(new_currency)
       new_currency = normalize_currency(new_currency)
       if currency != new_currency
-        if rate = Economy.rate(currency, new_currency)
-          Money.new (amount * BigDecimal(rate)), new_currency
+        if rate = Economy.cache.rate(currency, new_currency)
+          build (amount * BigDecimal(rate)), new_currency
         else
           raise "Rate #{currency.iso_code} => #{new_currency.iso_code} not found"
         end
@@ -172,8 +172,12 @@ module Economy
       if value.is_a?(Currency)
         value
       else
-        Economy.currencies.find value
+        Economy.cache.currency value
       end
+    end
+
+    def build(amount, currency)
+      Money.new record, amount, currency, renderer
     end
 
   end

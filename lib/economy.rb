@@ -2,12 +2,12 @@ require 'net/http'
 
 require 'economy/extensions/active_record/base'
 require 'economy/rates/base'
-require 'economy/rates/yahoo'
+require 'economy/rates/open_exchange_rates'
 require 'economy/builder'
 require 'economy/cache'
 require 'economy/configuration'
-require 'economy/currencies'
 require 'economy/currency'
+require 'economy/exchange'
 require 'economy/money'
 require 'economy/railtie'
 require 'economy/version'
@@ -19,20 +19,12 @@ module Economy
       @cache ||= Cache.new
     end
 
-    def currencies
-      @currencies ||= Currencies.new
-    end
-
     def configuration
       @configuration ||= Configuration.new
     end
 
     def configure
       yield configuration
-    end
-
-    def rate(*args)
-      cache.send :fetch, *args
     end
 
     def update_rates

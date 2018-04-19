@@ -18,7 +18,7 @@ module Economy
         else
           currency_attribute = :currency
         end
-        set_validators attribute, currency_attribute
+        set_currency attribute, currency_attribute
         define_helpers attribute
         default_currency = Economy.configuration.default_currency
         define_getter attribute, currency_attribute, default_currency, renderer
@@ -29,12 +29,12 @@ module Economy
 
     private
 
-    def set_validators(attribute, currency_attribute)
+    def set_currency(attribute, currency_attribute)
+      model.belongs_to currency_attribute, class_name: 'Economy::Currency', required: false
       model.validates_presence_of currency_attribute, if: -> {
         value = read_attribute(attribute)
         value && value > 0
       }
-      model.validates_length_of currency_attribute, is: 3, allow_blank: true
     end
 
     def define_helpers(attribute)

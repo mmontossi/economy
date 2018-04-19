@@ -7,15 +7,12 @@ module Economy
 
       source_root File.expand_path('../templates', __FILE__)
 
-      def add_economy_file
+      def add_initializer
         copy_file 'economy.rb', 'config/initializers/economy.rb'
       end
 
-      def add_redis_file
-        copy_file 'redis.yml', 'config/redis.yml'
-      end
-
-      def add_create_exchanges_file
+      def add_migrations
+        migration_template 'create_currencies.rb', 'db/migrate/create_currencies.rb'
         migration_template 'create_exchanges.rb', 'db/migrate/create_exchanges.rb'
       end
 

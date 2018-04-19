@@ -1,6 +1,6 @@
 module Economy
   module Rates
-    class Yahoo < Base
+    class OpenExchangeRates < Base
 
       private
 

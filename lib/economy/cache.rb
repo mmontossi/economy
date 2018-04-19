@@ -1,29 +1,26 @@
 module Economy
   class Cache
 
-    def fetch(from, to)
-      get "exchanges/#{from.iso_code.downcase}/#{to.iso_code.downcase}"
+    def rate(from, to)
+      fetch "exchanges/#{from.iso_code.downcase}/#{to.iso_code.downcase}" do
+        Exchange.find_by(from: from, to: to).try :rate
+      end
     end
 
-    def update(exchange)
-      set "exchanges/#{exchange.from.downcase}/#{exchange.to.downcase}", exchange.rate.to_s
-    end
-
-    def clear
-      del 'exchanges/*'
-    end
-
-    def method_missing(name, *args, &block)
-      redis.public_send name, *args, &block
+    def currency(iso_code)
+      fetch "currencies/#{iso_code.downcase}" do
+        Currency.find_by iso_code: iso_code
+      end
     end
 
     private
 
-    def redis
-      @redis ||= begin
-        require 'redis'
-        Redis.new YAML.load_file("#{Rails.root}/config/redis.yml")[Rails.env]
-      end
+    def expiration
+      Economy.configuration.cache_expiration
+    end
+
+    def fetch(key, &block)
+      Rails.cache.fetch key, expires_in: expiration, &block
     end
 
   end
