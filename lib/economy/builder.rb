@@ -20,9 +20,8 @@ module Economy
         end
         set_currency attribute, currency_attribute
         define_helpers attribute
-        default_currency = Economy.configuration.default_currency
-        define_getter attribute, currency_attribute, default_currency, renderer
-        define_setter attribute, currency_attribute, default_currency
+        define_getter attribute, currency_attribute, renderer
+        define_setter attribute, currency_attribute
       end
       model.include concern
     end
@@ -30,11 +29,7 @@ module Economy
     private
 
     def set_currency(attribute, currency_attribute)
-      model.belongs_to currency_attribute, class_name: 'Economy::Currency', required: false
-      model.validates_presence_of currency_attribute, if: -> {
-        value = read_attribute(attribute)
-        value && value > 0
-      }
+      model.belongs_to currency_attribute, class_name: 'Economy::Currency'
     end
 
     def define_helpers(attribute)
@@ -48,7 +43,7 @@ module Economy
       end
     end
 
-    def define_getter(attribute, currency_attribute, default_currency, renderer)
+    def define_getter(attribute, currency_attribute, renderer)
       concern.class_eval do
         define_method attribute do
           value = read_attribute(attribute)
@@ -56,20 +51,20 @@ module Economy
           Economy::Money.new(
             self,
             (value || 0),
-            (currency || default_currency),
+            currency,
             renderer
           )
         end
       end
     end
 
-    def define_setter(attribute, currency_attribute, default_currency)
+    def define_setter(attribute, currency_attribute)
       concern.class_eval do
         define_method "#{attribute}=" do |value|
           case value
           when Money
             if currency_attribute == :currency
-              currency = (send(currency_attribute) || default_currency)
+              currency = send(currency_attribute)
               write_attribute attribute, value.exchange_to(currency).amount
             else
               write_attribute attribute, value.amount
