@@ -138,7 +138,7 @@ module Economy
     def exchange_to(new_currency)
       new_currency = normalize_currency(new_currency)
       if currency != new_currency
-        if rate = Economy.cache.rate(currency, new_currency)
+        if rate = Economy::Exchange.find_by(from: currency, to: new_currency).try(:rate)
           build (amount * BigDecimal(rate)), new_currency
         else
           raise "Rate #{currency.iso_code} => #{new_currency.iso_code} not found"
@@ -149,7 +149,7 @@ module Economy
     end
 
     def to_json(options={})
-      "%.#{currency.decimals}f" % amount
+      "%.#{decimals}f" % amount
     end
     alias_method :as_json, :to_json
 
@@ -157,7 +157,7 @@ module Economy
       value = ActiveSupport::NumberHelper.number_to_currency(
         amount,
         unit: currency.symbol,
-        precision: (precision || currency.decimals)
+        precision: (precision || decimals)
       )
       if renderer
         record.instance_exec value, &renderer
@@ -168,11 +168,15 @@ module Economy
 
     private
 
+    def decimals
+      Economy.configuration.decimals || currency.decimals
+    end
+
     def normalize_currency(value)
       if value.is_a?(Currency)
         value
       else
-        Economy.cache.currency value
+        Economy::Currency.find_by iso_code: value
       end
     end
 

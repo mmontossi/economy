@@ -48,12 +48,17 @@ module Economy
         define_method attribute do
           value = read_attribute(attribute)
           currency = send(currency_attribute)
-          Economy::Money.new(
+          money = Economy::Money.new(
             self,
             (value || 0),
             currency,
             renderer
           )
+          if enforced_currency = Economy.configuration.currency
+            money.exchange_to enforced_currency
+          else
+            money
+          end
         end
       end
     end

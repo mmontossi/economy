@@ -1,7 +1,7 @@
 module Economy
   class Configuration
 
-    attr_accessor :default_currency, :cache_expiration
+    attr_accessor :currency, :decimals
 
   end
 end
