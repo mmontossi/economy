@@ -149,7 +149,7 @@ module Economy
     end
 
     def to_json(options={})
-      "%.#{decimals}f" % amount
+      Float("%.#{decimals}f" % amount)
     end
     alias_method :as_json, :to_json
 
