@@ -14,23 +14,31 @@ module Economy
         renderer = args.pop
       end
       args.each do |attribute|
-        if model.column_names.include?("#{attribute}_currency")
-          currency_attribute = :"#{attribute}_currency"
-        else
-          currency_attribute = :currency
+        currency_column, currency_attribute = begin
+          if model.column_names.include?("#{attribute}_currency_id")
+            [true, :"#{attribute}_currency"]
+          elsif model.method_defined?("#{attribute}_currency")
+            [false, :"#{attribute}_currency"]
+          elsif model.column_names.include?('currency_id')
+            [true, :currency]
+          elsif model.method_defined?('currency')
+            [false, :currency]
+          end
+        end
+        if currency_column
+          set_currency currency_attribute
         end
         condition_attribute = "#{attribute}_is_money?"
-        set_currency attribute, currency_attribute
         define_helpers attribute, condition_attribute, options
         define_getter attribute, currency_attribute, condition_attribute, renderer
-        define_setter attribute, currency_attribute, condition_attribute
+        define_setter attribute, currency_column, currency_attribute, condition_attribute
       end
       model.include concern
     end
 
     private
 
-    def set_currency(attribute, currency_attribute)
+    def set_currency(currency_attribute)
       model.belongs_to currency_attribute, class_name: 'Economy::Currency'
     end
 
@@ -86,7 +94,7 @@ module Economy
       end
     end
 
-    def define_setter(attribute, currency_attribute, condition_attribute)
+    def define_setter(attribute, currency_column, currency_attribute, condition_attribute)
       concern.class_eval do
         define_method "#{attribute}=" do |value|
           if send(condition_attribute)
@@ -97,7 +105,9 @@ module Economy
                 write_attribute attribute, value.exchange_to(currency).amount
               else
                 write_attribute attribute, value.amount
-                write_attribute currency_attribute, value.currency.iso_code
+                if currency_column
+                  write_attribute currency_attribute, value.currency.iso_code
+                end
               end
             else
               write_attribute attribute, value
