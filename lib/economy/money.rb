@@ -2,18 +2,18 @@ module Economy
   class Money
     include Comparable
 
-    attr_reader :record, :amount, :currency, :renderer
+    attr_reader :amount, :currency, :record, :renderer
 
     delegate :to_d, :to_i, :to_f, to: :amount
 
-    def initialize(record, amount, currency, renderer=nil)
-      @record = record
+    def initialize(amount, currency, record=nil, renderer=nil)
       if amount.is_a?(BigDecimal)
         @amount = amount
       else
         @amount = BigDecimal(amount.to_s)
       end
       @currency = normalize_currency(currency)
+      @record = record
       @renderer = renderer
     end
 
@@ -159,7 +159,7 @@ module Economy
         unit: currency.symbol,
         precision: (precision || decimals)
       )
-      if renderer
+      if record && renderer
         record.instance_exec value, &renderer
       else
         value
@@ -181,7 +181,7 @@ module Economy
     end
 
     def build(amount, currency)
-      Money.new record, amount, currency, renderer
+      Money.new amount, currency, record, renderer
     end
 
   end

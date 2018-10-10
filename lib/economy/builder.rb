@@ -77,9 +77,9 @@ module Economy
             value = read_attribute(attribute)
             currency = send(currency_attribute)
             money = Economy::Money.new(
-              self,
               (value || 0),
               currency,
+              self,
               renderer
             )
             if enforced_currency = Economy.configuration.currency

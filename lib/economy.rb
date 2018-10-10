@@ -1,5 +1,4 @@
 require 'net/http'
-
 require 'economy/extensions/active_record/base'
 require 'economy/rates/base'
 require 'economy/rates/open_exchange_rates'
